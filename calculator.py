@@ -1,4 +1,5 @@
 import tkinter as tk
+import doctest
 
 
 class CalculatorModel:
@@ -6,14 +7,50 @@ class CalculatorModel:
         self.expression = ""
 
     def add(self, value):
+        """
+        Додає символ до виразу.
+        >>> model = CalculatorModel()
+        >>> model.add(5)
+        '5'
+        >>> model.add('+')
+        '5+'
+        >>> model.add(3)
+        '5+3'
+        """
         self.expression += str(value)
         return self.expression
 
     def clear(self):
+        """
+        Очищує вираз.
+        >>> model = CalculatorModel()
+        >>> model.add(10)
+        '10'
+        >>> model.clear()
+        ''
+        """
         self.expression = ""
         return self.expression
 
     def calculate(self):
+        """
+        Обчислює вираз.
+        >>> model = CalculatorModel()
+        >>> model.add(10)
+        '10'
+        >>> model.add('+')
+        '10+'
+        >>> model.add(5)
+        '10+5'
+        >>> model.calculate()
+        '15'
+        >>> model.clear()
+        ''
+        >>> model.add('10/2')
+        '10/2'
+        >>> model.calculate()
+        '5.0'
+        """
         try:
             result = eval(self.expression)
         except Exception:
@@ -113,4 +150,5 @@ if __name__ == "__main__":
     view = CalculatorView()
     controller = CalculatorController(model, view)
     view.set_controller(controller)
+    doctest.testmod()
     view.mainloop()
